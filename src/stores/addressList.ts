@@ -16,7 +16,6 @@ export const useAddressListStore = defineStore("address", {
   state: (): AddressListState => ({
     searchResult: [],
     loading: false,
-    errors: null,
   }),
 
   actions: {
