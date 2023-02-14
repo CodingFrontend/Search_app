@@ -27,7 +27,7 @@ export const useAddressListStore = defineStore("address", {
       try {
         this.searchResult = await getAddressList(params);
       } catch (error) {
-        console.log(errors);
+        console.error(error);
       } finally {
         this.loading = false;
       }
