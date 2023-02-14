@@ -8,7 +8,7 @@ import type { AddressApiParams } from "@/types/AddressApi";
 import type { AddressTypes } from "@/types/Address";
 
 export interface AddressListState {
-  searchResult: AddressTypes[] | [];
+  searchResult: AddressTypes[];
   loading: boolean;
 }
 

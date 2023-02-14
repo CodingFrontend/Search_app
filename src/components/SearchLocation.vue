@@ -4,7 +4,7 @@
 
     <SearchInput
       class="search-location__field"
-      v-model="searchText"
+      v-model.trim="searchText"
       @keyup="searchAddress"
     />
     <div class="search-location__result">
@@ -23,7 +23,7 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import Address from "@/components/Address.vue";
 import SearchInput from "@/components/SearchInput.vue";
 

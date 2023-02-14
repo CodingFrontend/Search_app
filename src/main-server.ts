@@ -9,7 +9,7 @@ import { renderToString } from "vue/server-renderer";
 import App from "./App.vue";
 import router from "./router";
 
-export async function render(url, manifest = null) {
+export async function render(url: any, manifest = null) {
   const app = createSSRApp(App);
   app.use(router);
 
@@ -30,13 +30,13 @@ export async function render(url, manifest = null) {
   return [html, preloadLinks];
 }
 
-function renderPreloadLinks(modules, manifest) {
+function renderPreloadLinks(modules: any, manifest: any) {
   let links = "";
   const seen = new Set();
-  modules.forEach((id) => {
+  modules.forEach((id: any) => {
     const files = manifest[id];
     if (files) {
-      files.forEach((file) => {
+      files.forEach((file: any) => {
         if (!seen.has(file)) {
           seen.add(file);
           const filename = basename(file);
@@ -54,7 +54,7 @@ function renderPreloadLinks(modules, manifest) {
   return links;
 }
 
-function renderPreloadLink(file) {
+function renderPreloadLink(file: any) {
   if (file.endsWith(".ts")) {
     return `<link rel="modulepreload" crossorigin href="${file}">`;
   } else if (file.endsWith(".css")) {
