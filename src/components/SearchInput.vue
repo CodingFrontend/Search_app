@@ -9,15 +9,10 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref } from "vue";
+<script lang="ts" setup>
+import { ref } from "vue";
 
-export default defineComponent({
-  setup() {
-    const value = ref("");
-    return { value };
-  },
-});
+const value = ref("");
 </script>
 <style lang="scss" scoped>
 .search-input {

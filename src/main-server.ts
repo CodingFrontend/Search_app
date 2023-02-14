@@ -7,7 +7,7 @@ import { renderToString } from "vue/server-renderer";
 
 // App
 import App from "./App.vue";
-import router from "./router/index.ts";
+import router from "./router";
 
 export async function render(url, manifest = null) {
   const app = createSSRApp(App);
@@ -55,7 +55,7 @@ function renderPreloadLinks(modules, manifest) {
 }
 
 function renderPreloadLink(file) {
-  if (file.endsWith(".js")) {
+  if (file.endsWith(".ts")) {
     return `<link rel="modulepreload" crossorigin href="${file}">`;
   } else if (file.endsWith(".css")) {
     return `<link rel="stylesheet" href="${file}">`;

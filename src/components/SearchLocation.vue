@@ -18,47 +18,35 @@
         />
       </div>
       <div v-else-if="addressStore.loading">Loading data... Please, wait</div>
-      <div v-else-if="addressStore.errors">{{ addressStore.errors }}</div>
     </div>
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, computed } from "vue";
-import Address from "../components/Address.vue";
-import SearchInput from "./SearchInput.vue";
+<script lang="ts" setup>
+import { ref, computed } from "vue";
+import Address from "@/components/Address.vue";
+import SearchInput from "@/components/SearchInput.vue";
 
-import { useAddressListStore } from "../stores/addressList";
+import _debounce from "lodash/debounce";
 
-export default defineComponent({
-  name: "App",
-  components: {
-    Address,
-    SearchInput,
-  },
-  setup() {
-    const addressStore = useAddressListStore();
+import { useAddressListStore } from "@/stores/addressList";
+import { storeToRefs } from "pinia";
 
-    const searchText = ref("");
+const addressStore = useAddressListStore();
 
-    const addressList = computed(() => addressStore.searchResult);
+const searchText = ref("");
 
-    const searchAddress = () => {
-      addressStore.searchAddress({
-        q: searchText.value,
-        format: "json",
-        limit: 10,
-      });
-    };
+const { searchResult: addressList } = storeToRefs(addressStore);
 
-    return {
-      addressStore,
-      addressList,
-      searchAddress,
-      searchText,
-    };
-  },
-});
+const searchAddress = _debounce(() => {
+  if (!searchText.value) return addressStore.clearSearchResult();
+
+  addressStore.searchAddress({
+    q: searchText.value,
+    format: "json",
+    limit: 10,
+  });
+}, 500);
 </script>
 <style lang="scss" scoped>
 .search-location {

@@ -50,10 +50,10 @@ async function start() {
 
       let render = null;
       if (isProd) {
-        render = (await import("../dist/server/main-server.js")).render;
+        render = (await import("../dist/server/main-server.ts")).render;
       } else {
         template = await vite.transformIndexHtml(url, template);
-        render = (await vite.ssrLoadModule(resolve("./main-server.js"))).render;
+        render = (await vite.ssrLoadModule(resolve("./main-server.ts"))).render;
       }
 
       const [appHtml, preloadLinks] = await render(url, manifest);

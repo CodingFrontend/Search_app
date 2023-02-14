@@ -2,24 +2,22 @@ import { defineStore, createPinia, setActivePinia } from "pinia";
 
 setActivePinia(createPinia());
 
-import { getAddressList } from "../api/searchApi";
+import { getAddressList } from "@/api/searchApi";
 
-import type { AddressApiParams } from "../types/AddressApi";
-import type { AddressTypes } from "../types/Address";
+import type { AddressApiParams } from "@/types/AddressApi";
+import type { AddressTypes } from "@/types/Address";
 
-export type AddressListState = {
+export interface AddressListState {
   searchResult: AddressTypes[] | [];
   loading: boolean;
-  errors: any;
-};
+}
 
 export const useAddressListStore = defineStore("address", {
-  state: () =>
-    ({
-      searchResult: [],
-      loading: false,
-      errors: null,
-    } as AddressListState),
+  state: (): AddressListState => ({
+    searchResult: [],
+    loading: false,
+    errors: null,
+  }),
 
   actions: {
     async searchAddress(params: AddressApiParams) {
@@ -29,10 +27,14 @@ export const useAddressListStore = defineStore("address", {
       try {
         this.searchResult = await getAddressList(params);
       } catch (error) {
-        this.error = error;
+        console.log(errors);
       } finally {
         this.loading = false;
       }
+    },
+
+    clearSearchResult() {
+      this.searchResult = [];
     },
   },
 });

@@ -5,26 +5,15 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from "vue";
-import type { PropType } from "vue";
-import type { AddressTypes } from "../types/Address";
+<script lang="ts" setup>
+import type { AddressTypes } from "@/types/Address";
 
-export default defineComponent({
-  props: {
-    address: {
-      type: Object as PropType<AddressTypes>,
-      required: true,
-    },
-    index: {
-      type: Number,
-      required: true,
-    },
-  },
-  setup() {
-    return {};
-  },
-});
+interface Props {
+  address: AddressTypes;
+  index: Number;
+}
+
+defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>

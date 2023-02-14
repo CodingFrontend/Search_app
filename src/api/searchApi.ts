@@ -11,7 +11,7 @@ const searchApi = axios.create({
 export const getAddressList = async (
   params: AddressApiParams
 ): Promise<AddressTypes[]> => {
-  const response = await searchApi.get("search?", {
+  const response = await searchApi.get("search", {
     params,
   });
   return response.data;
